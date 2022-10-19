@@ -1,0 +1,4 @@
+service_name: 'ruby-api'
+secret_token: 'EfGnPLh2KN6CCqlgQi'
+server_url: 'https://9db065fb5ed1451090ee7779c517ed1d.apm.asia-northeast1.gcp.cloud.es.io:443'
+environment: 'production'
