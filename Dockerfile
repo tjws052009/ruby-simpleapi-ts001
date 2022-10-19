@@ -1,4 +1,4 @@
-FROM ruby:3.1
+FROM ruby:3.1-slim-bullseye
 
 RUN bundle config --global frozen 1
 
