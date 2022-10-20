@@ -17,7 +17,11 @@ class MainTest < Test::Unit::TestCase
 
   def test_es
     get '/es'
-    assert !last_response.ok?
+    if (rand(0..9) < 5)
+      assert !last_response.ok?
+    else
+      assert last_response.ok?
+    end
     if (rand(0..9) < 5) then; sleep 5; end
     # assert_equal 'Hello es', last_response.body
   end
