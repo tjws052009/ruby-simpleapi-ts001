@@ -17,6 +17,7 @@ class MainTest < Test::Unit::TestCase
 
   def test_es
     get '/es'
+    sleep 10
     if (rand(0..9) < 7)
       assert !last_response.ok?
     else
