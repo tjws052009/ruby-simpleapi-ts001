@@ -10,7 +10,7 @@ class RubyAPI < Sinatra::Base
   end
 
   get '/es' do
-    client = Elasticsearch::Client.new url: 'http://es:9200'
+    client = Elasticsearch::Client.new url: 'https://es:9200'
 
     "ES result: #{client.cluster.health}"
   end
