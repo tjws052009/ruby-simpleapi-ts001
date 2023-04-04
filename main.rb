@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'elasticsearch'
 require 'redis'
+require 'logger'
 
 class RubyAPI < Sinatra::Base
   f = File.open("/tmp/rubyapp.log", 'a')
