@@ -2,11 +2,21 @@ require 'sinatra/base'
 require 'elasticsearch'
 require 'redis'
 
-
 class RubyAPI < Sinatra::Base
+  f = File.open("/tmp/rubyapp.log", 'a')
+  f.sync = true
+  logger = Logger.new(f)
+  logger.level = Logger::DEBUG
+  set :logger, logger
 
   get '/' do
-    "Hello World!"
+    val = params['val'].to_i || 1
+    lv = params['lv']
+    lv = 'debug' unless !(lv.nil? || lv.empty?) && ['warn', 'error', 'info', 'debug'].include?(lv)
+
+    logger.send(lv, "Hello world val = #{val}")
+
+    "Hello World! #{lv}:#{val}"
   end
 
   get '/es' do
