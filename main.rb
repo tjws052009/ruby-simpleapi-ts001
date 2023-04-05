@@ -8,16 +8,25 @@ class RubyAPI < Sinatra::Base
   f.sync = true
   logger = Logger.new(f)
   logger.level = Logger::DEBUG
+  logger.formatter = proc{|severity, datetime, progname, message|
+    date_format = datetime.utc.iso8601(3)
+    "#{date_format} #{severity} #{message}\n"
+  }
   set :logger, logger
 
   get '/' do
-    val = params['val'].to_i || 1
+    val = params['val']
     lv = params['lv']
-    lv = 'debug' unless !(lv.nil? || lv.empty?) && ['warn', 'error', 'info', 'debug'].include?(lv)
+    if lv.nil? && val.nil?
+      logger.send('warn', "Warning: missing params")
+      return "Hello World!"
+    else
+      val = val.to_i || 1
+      lv = 'debug' unless ['warn', 'error', 'info', 'debug'].include?(lv)
+      logger.send(lv, "Hello world val = #{val}")
+      return "Hello World! #{lv}:#{val}"
+    end
 
-    logger.send(lv, "Hello world val = #{val}")
-
-    "Hello World! #{lv}:#{val}"
   end
 
   get '/es' do
